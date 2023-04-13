@@ -10,8 +10,9 @@ class RecipesRepo {
       function: (fail) async {
         final r = await HTTP.get('recipes?ingredients=${ingredient.join(',')}');
         if (r.is200 || r.is201) {
-          final body = r.data;
-          //NOTE what next with this ?
+          List<dynamic> body = r.data;
+          final recipe = body.map((e) => Recipes.fromJson(e)).toList();
+          return recipe;
         }
         return fail(r.data['message'] ?? defaultError);
       },

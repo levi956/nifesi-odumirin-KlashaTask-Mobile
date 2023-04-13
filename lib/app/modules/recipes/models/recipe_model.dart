@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class Recipes {
   Recipes({
     required this.title,
@@ -16,4 +18,13 @@ class Recipes {
         "title": title,
         "ingredients": List<String>.from(ingredients.map((x) => x)),
       };
+}
+
+class RecipleListModel extends Equatable {
+  final List<String> ingredients;
+
+  RecipleListModel(this.ingredients);
+
+  @override
+  List<Object> get props => [ingredients];
 }
