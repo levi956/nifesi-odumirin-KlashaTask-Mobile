@@ -20,7 +20,7 @@ The application features the principle "Component Driven Design" which enables a
 
 
 
-#### Folder Structure
+## Folder Structure
 
 * [app/](./lib/app)
   * [modules/](./lib/app/modules)
