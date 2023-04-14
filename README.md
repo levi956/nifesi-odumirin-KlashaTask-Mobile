@@ -44,11 +44,6 @@ The application features the principle "Component Driven Design" which enables a
 * [main.dart](./lib/main.dart)
 
 
-
-```
-
-
-
 ## test directory
 The `test` directory contains all the test files for the app. It's further organized in the following subdirectories
 - `widget_test`: contains test files for widget testing
