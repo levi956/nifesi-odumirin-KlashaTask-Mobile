@@ -40,7 +40,7 @@ class HTTP {
       BaseOptions(
         responseType: _rType,
         headers: _getHeaders,
-        baseUrl: Environment.base,
+        baseUrl: Environment.baseUrl,
         connectTimeout: _60seconds,
         receiveTimeout: _60seconds,
       ),

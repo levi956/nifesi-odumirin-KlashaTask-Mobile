@@ -6,5 +6,5 @@ import 'package:tech_task/core/connection/handler.dart';
 final recipesProvider = FutureProvider.autoDispose
     .family<ServiceResponse<List<Recipes>>, RecipleListModel>(
         (ref, param) async {
-  return RecipesRepo.getRecipes(param.ingredients);
+  return ref.read(recipesRepo).getRecipes(param.ingredients);
 });

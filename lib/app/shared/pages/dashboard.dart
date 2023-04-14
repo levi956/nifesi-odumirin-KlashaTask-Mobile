@@ -1,5 +1,3 @@
-// showing the whole p in one page and real time
-
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,6 +9,8 @@ import 'package:tech_task/app/modules/recipes/provider/recipes_provider.dart';
 import 'package:tech_task/app/shared/constants/layout.dart';
 import 'package:tech_task/app/shared/widgets/base_text.dart';
 import 'package:tech_task/core/config/device/bar_color.dart';
+
+import '../widgets/recipe_tile.dart';
 
 class Dashboard extends HookConsumerWidget {
   final DateTime lunchDate;
@@ -36,15 +36,25 @@ class Dashboard extends HookConsumerWidget {
             children: [
               // maybe a custom back button ?
 
-              BaseText(
-                text: 'Available Ingredients',
-                size: 20,
-                weight: FontWeight.w600,
+              YBox(20),
+
+              Row(
+                children: [
+                  BaseText(
+                    text: 'Available Ingredients',
+                    size: 20,
+                    weight: FontWeight.w600,
+                  ),
+                  XBox(10),
+                  Icon(Icons.food_bank)
+                ],
               ),
 
-              // select ingredients ?
+              YBox(30),
 
-              YBox(20),
+              // if (useByDate.isBefore(_selectedDate) || isIncluded) {
+              //         return SizedBox.shrink();
+              //       }
 
               BaseText(
                 text: 'Select Ingredients',
@@ -55,7 +65,9 @@ class Dashboard extends HookConsumerWidget {
 
               ingredients.when(
                 data: (data) {
-                  if (data.error) {}
+                  if (data.error) {
+                    return BaseText(text: 'An error has occured');
+                  }
                   final ingredients = data.data!;
                   if (ingredients.isEmpty) {
                     return BaseText(
@@ -65,7 +77,7 @@ class Dashboard extends HookConsumerWidget {
                   return ChipsChoice<String>.multiple(
                     padding: EdgeInsets.zero,
                     choiceStyle: C2ChipStyle(
-                      backgroundColor: Colors.grey.withOpacity(.6),
+                      backgroundColor: Colors.blue.withOpacity(.3),
                       foregroundStyle: Theme.of(context).textTheme.bodyMedium,
                       checkmarkColor: Colors.black,
                     ),
@@ -88,23 +100,28 @@ class Dashboard extends HookConsumerWidget {
                   );
                 },
                 error: (_, __) => BaseText(text: 'An error has occured'),
-                loading: () => CircularProgressIndicator.adaptive(),
+                loading: () =>
+                    Center(child: CircularProgressIndicator.adaptive()),
               ),
               YBox(40),
 
-              // add a button here get recipes
-
-              BaseText(
-                text: 'Recipes',
-                size: 19,
-                weight: FontWeight.w500,
+              Row(
+                children: [
+                  BaseText(
+                    text: 'Recipes',
+                    size: 19,
+                    weight: FontWeight.w500,
+                  ),
+                  XBox(10),
+                  Icon(Icons.receipt),
+                ],
               ),
-
+              YBox(10),
               Expanded(
                 child: recipes.when(
                   data: (data) {
                     if (data.error) {
-                      return BaseText(text: data.message!);
+                      return BaseText(text: 'An error has occured');
                     }
                     final recipe = data.data!;
                     if (recipe.isEmpty) {}
@@ -125,66 +142,6 @@ class Dashboard extends HookConsumerWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class RecipeTile extends HookConsumerWidget {
-  final Recipes recipe;
-
-  const RecipeTile(this.recipe, {super.key});
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7),
-        color: Colors.grey.withOpacity(.3),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BaseText(
-            text: recipe.title,
-            weight: FontWeight.w600,
-            size: 16,
-          ),
-          YBox(7),
-          SizedBox(
-            height: 30,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: recipe.ingredients.length,
-              separatorBuilder: (_, __) => XBox(10),
-              itemBuilder: (_, index) {
-                if (recipe.ingredients.isEmpty) {}
-                final data = recipe.ingredients[index];
-                return CustomChip(data);
-              },
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CustomChip extends StatelessWidget {
-  final String label;
-  const CustomChip(this.label, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.grey.withOpacity(.4),
-      ),
-      child: BaseText(
-        text: label,
-        size: 13,
       ),
     );
   }

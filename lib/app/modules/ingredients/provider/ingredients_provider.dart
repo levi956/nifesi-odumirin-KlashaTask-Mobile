@@ -5,5 +5,5 @@ import 'package:tech_task/core/connection/handler.dart';
 
 final ingredientsProvider =
     FutureProvider<ServiceResponse<List<Ingredients>>>((ref) async {
-  return IngredientsRepo.getIngredients();
+  return ref.read(ingredientsRepo).getIngredients();
 });

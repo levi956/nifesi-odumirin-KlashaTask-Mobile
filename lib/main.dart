@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tech_task/app/shared/views/dashboard.dart';
+import 'package:tech_task/app/shared/pages/landing.dart';
 import 'package:tech_task/core/setups/setups.dart';
 
 void main() async {
@@ -18,7 +18,7 @@ class RecipeApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Assessment',
-      home: Dashboard(DateTime.now()),
+      home: LandingPage(),
     );
   }
 }
