@@ -19,6 +19,36 @@ The application features the principle "Component Driven Design" which enables a
 - It communicates with REST APIs to perform functionality.
 
 
+
+#### Folder Structure
+
+* [app/](./lib/app)
+  * [modules/](./lib/app/modules)
+    * [ingredients/](./lib/app/modules/ingredients)
+    * [recipes/](./lib/app/modules/recipes)
+  * [shared/](./lib/app/shared)
+    * [classes/](./lib/app/shared/classes)
+    * [constants/](./lib/app/shared/constants)
+    * [extensions/](./lib/app/shared/extensions)
+    * [pages/](./lib/app/shared/pages)
+    * [widgets/](./lib/app/shared/widgets)
+* [core/](./lib/core)
+  * [config/](./lib/core/config)
+    * [device/](./lib/core/config/device)
+  * [connection/](./lib/core/connection)
+    * [handler.dart](./lib/core/connection/handler.dart)
+  * [navigation/](./lib/core/navigation)
+    * [navigator.dart](./lib/core/navigation/navigator.dart)
+  * [setups/](./lib/core/setups)
+    * [setups.dart](./lib/core/setups/setups.dart)
+* [main.dart](./lib/main.dart)
+
+
+
+```
+
+
+
 ## test directory
 The `test` directory contains all the test files for the app. It's further organized in the following subdirectories
 - `widget_test`: contains test files for widget testing

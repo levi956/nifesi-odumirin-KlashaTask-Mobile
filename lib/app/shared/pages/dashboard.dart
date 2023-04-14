@@ -8,6 +8,7 @@ import 'package:tech_task/app/modules/recipes/models/recipe_model.dart';
 import 'package:tech_task/app/modules/recipes/provider/recipes_provider.dart';
 import 'package:tech_task/app/shared/constants/layout.dart';
 import 'package:tech_task/app/shared/widgets/base_text.dart';
+import 'package:tech_task/app/shared/widgets/custom_back_button.dart';
 import 'package:tech_task/core/config/device/bar_color.dart';
 
 import '../widgets/recipe_tile.dart';
@@ -34,10 +35,8 @@ class Dashboard extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // maybe a custom back button ?
-
+              CustomBackButton(),
               YBox(20),
-
               Row(
                 children: [
                   BaseText(
@@ -49,20 +48,13 @@ class Dashboard extends HookConsumerWidget {
                   Icon(Icons.food_bank)
                 ],
               ),
-
               YBox(30),
-
-              // if (useByDate.isBefore(_selectedDate) || isIncluded) {
-              //         return SizedBox.shrink();
-              //       }
-
               BaseText(
                 text: 'Select Ingredients',
                 size: 17,
                 weight: FontWeight.w500,
               ),
               YBox(10),
-
               ingredients.when(
                 data: (data) {
                   if (data.error) {
@@ -90,9 +82,7 @@ class Dashboard extends HookConsumerWidget {
                     choiceItems: C2Choice.listFrom<String, Ingredients>(
                       source: ingredients,
                       value: (i, v) {
-                        // if (v.useBy.isBefore(lunchDate)) {
-                        //   //TODO make the condition for the date stuff p here
-                        // }
+                        if (v.useBy.isBefore(lunchDate)) {}
                         return v.title;
                       },
                       label: (i, v) => v.title,
@@ -104,7 +94,6 @@ class Dashboard extends HookConsumerWidget {
                     Center(child: CircularProgressIndicator.adaptive()),
               ),
               YBox(40),
-
               Row(
                 children: [
                   BaseText(
@@ -124,7 +113,9 @@ class Dashboard extends HookConsumerWidget {
                       return BaseText(text: 'An error has occured');
                     }
                     final recipe = data.data!;
-                    if (recipe.isEmpty) {}
+                    if (recipe.isEmpty) {
+                      return BaseText(text: 'No recipes.');
+                    }
                     return ListView.separated(
                       itemCount: recipe.length,
                       separatorBuilder: (_, __) => YBox(20),
